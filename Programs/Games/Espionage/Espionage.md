@@ -56,4 +56,4 @@ and the counter-espionage players will move forward...
 
 ## A Screenshot
 
-![Espionage](https://github.com/agrvsk/Java/blob/master/Espionage.png)
+![Espionage](https://github.com/agrvsk/Java/Programs/Games/Espionage/blob/master/Espionage.png)
