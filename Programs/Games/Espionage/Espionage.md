@@ -25,31 +25,31 @@ and the counter-espionage players will move forward...
 ## The Code
 <table>   
 <tr>
-	<td>Espionage</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/Espionage.java">Espionage</a></td>
 	<td>Program main w GUI Frame and Menu </td>
 </tr>
 <tr>
-	<td>Player</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/Player.java">Player</a></td>
 	<td>Keeps track of the player's hand of cards and the current position on the board.</td>
 </tr>
 <tr>
-	<td>Battle</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/Battle.java">Battle</a></td>
 	<td>Holds the Game Logic</td>
 </tr>
 <tr>
-	<td>Board</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/Board.java">Board</a></td>
 	<td>Consists mainly of a paint method that draws the board and the Player's hand of cards.</td>
 </tr>
 <tr>
-	<td>ActionCard</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/ActionCard.java">ActionCard</a></td>
 	<td>Each player has a set of ActionCards used to select next action.</td>
 </tr>
 <tr>
-	<td>SecretCard</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/SecretCard.java">SecretCard</a></td>
 	<td>This is the wanted treasure!</td>
 </tr>
 <tr>
-	<td>ReportUtil</td>
+	<td><a href="https://github.com/PrajaktaSathe/Java/blob/main/Programs/Games/Espionage/ReportUtil.java">ReportUtil</a></td>
 	<td>Utility to get all possible Reports from the player's hand of SecretCards - returns the best one.</td>
 </tr>
 </table>
