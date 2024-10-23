@@ -411,7 +411,7 @@ public class Battle extends MouseAdapter {
 				// A placeholder is added.
 				usr.addSelectedGroup(lTrick); 	// may disable some cards.
 				board.setCards(usr, spel); 		// update user's visible cards.
-				setStatus("Join group 1(secret mission) or 2(embassymeeting).");
+				setStatus("Join group 1 (secret mission) or 2 (embassy meeting).");
 			} else
 				usr.addSelectedGroup(lTrick);
 		}
@@ -587,6 +587,7 @@ public class Battle extends MouseAdapter {
 		board.setProgress(lPlayers);
 		board.updatePrison(lPlayers.size(), qPrison);
 		board.setTrick(lTrick, spel);
+		setStatus("click to continue...");
 		
 		if (AUTOPLAY )
 			proceed();
@@ -775,15 +776,16 @@ public class Battle extends MouseAdapter {
 		String msg = "Group2:  ";
 		int max = sorterad.size();
 		if (max > 0) {
+			msg = "Moves due to Report ";
 			Report No1 = sorterad.get(0);
 			Player p1 = lPlayers.stream().filter(p->p.getName() == No1.getName()).findFirst().get();
 			
 			if(p1.getHandledBy() == PlayerHandler.MANUAL) {
-				msg +=          "You had best R and move " + stad.first + " step(s). ";
+				msg +=          "(You " + stad.first ;
 				System.out.println("\t* You had the best Report("+No1.getCardCount()+", "+No1.getMaxValue()+") and is moved forward "+stad.first+" step(s)." );
 			}
 			else {
-				msg +=        No1.getName() + " had best R and move " + stad.first + " step(s). ";
+				msg +=        "("+No1.getName() + " " + stad.first ;
 				System.out.println("\t* "+No1.getName()+" had the best Report("+No1.getCardCount()+", "+No1.getMaxValue()+") and is moved forward "+stad.first+" step(s)." );
 			}
 			p1.add2Position(stad.first);
@@ -795,19 +797,20 @@ public class Battle extends MouseAdapter {
 			Player p2 = lPlayers.stream().filter(p->p.getName() == No2.getName()).findFirst().get();
 			
 			if(p2.getHandledBy() == PlayerHandler.MANUAL) {
-				msg += "and you had 2nd best R, move " + stad.second + " step(s). ";
+				msg += ", You " + stad.second ;
 				System.out.println("\t* You had the second best Report ("+No2.getCardCount()+", "+No2.getMaxValue()+") and is moved "+stad.second+" step(s)." );
 
 			}
 			else {
-				msg += "and "+No2.getName() + " had 2nd best R, move " + stad.second + " step(s). ";
+				msg += ", "+No2.getName() + " " + stad.second;
 				System.out.println("\t* "+No2.getName()+" had the second best Report ("+No2.getCardCount()+", "+No2.getMaxValue()+") and is moved "+stad.second+" step(s)." );
 				
 			}
 			p2.add2Position(stad.second);
 			if(!gameOver)
 				p2.getSelectedAction().setSelected(true);	//Highlight the ReportCard
-		}	
+		}
+		if (max > 0) msg += ") ";
 
 		
 		setStatus(msg);
@@ -917,26 +920,43 @@ public class Battle extends MouseAdapter {
 		}
 		
 
-		// All the agents will be imprisoned
+		// All the agents in the Trick will be imprisoned
 		if (CounterCnt != 0 && AgentCnt != 0) {
+			if(reportCnt == 0)
+				statusMsg += "Moves due to Counter...(";
+			else
+				statusMsg += ", Counter...(";
+			
 			lGroupTwo.stream().filter(m -> m.getSelectedAction().getType() == CardType.COUNTERESPIONAGE)
 					.collect(Collectors.toList()).forEach(u -> {
 						
-						if(u.getHandledBy() == PlayerHandler.MANUAL)
-							System.out.print("\t* You selected counterespionage and is moved forward. ");
-						else
-							System.out.print("\t* " + u.getName() + " selected counterespionage and is moved forward. ");
 						
-						for (long qqq : lPositions) {
-							if (qqq == u.getPosition()) {
-								long idx = lPositions.indexOf(qqq) + 1;
-								System.out.println(idx + " step(s).");
-								u.add2Position(idx);
+					//lPosition contain all square# with at least one marker.
+					for (long qqq : lPositions) {
+						
+						if (qqq == u.getPosition()) {
+							long idx = lPositions.indexOf(qqq) + 1;
+							
+							if(!statusMsg.endsWith("Counter...("))
+								statusMsg += ", ";
+								
+							if(u.getHandledBy() == PlayerHandler.MANUAL) {
+								statusMsg += "you "+idx;
+								System.out.print("\t* You selected counterespionage and is moved forward ");
 							}
-						}
-					});
+							else {
+								statusMsg += u.getName()+" "+idx;
+								System.out.print("\t* " + u.getName() + " selected counterespionage and is moved forward ");
+							}
+							System.out.println(idx + " step(s).");
 
-			statusMsg += CounterCnt+" Counter.. moved forward. ";
+							u.add2Position(idx);
+						}
+					}
+					
+			});
+
+			statusMsg += ") ";
 			statusMsg += "and "+ AgentCnt+" agent(s) was put in jail. ";
 
 
