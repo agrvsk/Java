@@ -1,6 +1,7 @@
 package Espionage;
 
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -34,6 +35,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -142,6 +144,7 @@ public class Espionage extends JFrame implements ItemListener, ChangeListener {
 		ButtonGroup btnGrp = new ButtonGroup();
 		lPlayers.stream().forEach(u -> {
 			p.add(getRadioButton4Player(u, btnGrp));
+			p.add(Box.createVerticalStrut(2));
 		});
 		p.add(Box.createVerticalStrut(15));
 		
@@ -187,6 +190,7 @@ public class Espionage extends JFrame implements ItemListener, ChangeListener {
 	public JPanel getRadioButton4Player(Player u, ButtonGroup bg) {
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout(p, BoxLayout.LINE_AXIS));
+		p.setBorder(new BevelBorder(BevelBorder.RAISED, u.getColor(), u.getColor()));
 
 		JRadioButton rb = new JRadioButton(u.getName().toString());
 		rb.setName(u.getName().toString());
